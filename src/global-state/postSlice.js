@@ -1,20 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { json } from "react-router-dom";
-
+let postapi = process.env.REACT_APP_DATA_BASE_API;
 export const fetchdata = createAsyncThunk("posts/get-posts", async (_, thunkApi) => {
   const { rejectWithValue } = thunkApi;
   try {
-    const res = await fetch("http://localhost:5000/posts");
+    const res = await fetch(postapi);
     let data = await res.json();
     return data;
   } catch (error) {
+    console.log("dd");
     return rejectWithValue(error.message);
   }
 });
 export const deletepost = createAsyncThunk("posts/delete-post", async (id, thunkApi) => {
   const { rejectWithValue } = thunkApi;
   try {
-    const res = await fetch(`http://localhost:5000/posts/${id}`, {
+    const res = await fetch(`${postapi}/${id}`, {
       method: "DELETE",
     });
     return id;
@@ -26,7 +26,7 @@ export const deletepost = createAsyncThunk("posts/delete-post", async (id, thunk
 export const fetchpost = createAsyncThunk("posts/fetch-Post", async (id, thunkApi) => {
   let { rejectWithValue } = thunkApi;
   try {
-    let res = await fetch(`http://localhost:5000/posts/${id}`);
+    let res = await fetch(`${postapi}/${id}`);
     let data = await res.json();
     return data;
   } catch (error) {
@@ -37,7 +37,7 @@ export const fetchpost = createAsyncThunk("posts/fetch-Post", async (id, thunkAp
 export const insertPost = createAsyncThunk("posts/insert-post", async (item, thunkApi) => {
   const { rejectWithValue } = thunkApi;
   try {
-    let res = await fetch(`http://localhost:5000/posts`, {
+    let res = await fetch(`${postapi}`, {
       method: "POST",
       body: JSON.stringify(item),
       headers: {
@@ -53,7 +53,7 @@ export const insertPost = createAsyncThunk("posts/insert-post", async (item, thu
 export const editPost = createAsyncThunk("posts/edit", async function (item, thunkApi) {
   const { rejectWithValue } = thunkApi;
   try {
-    let res = await fetch(`http://localhost:5000/posts/${item.id}`, {
+    let res = await fetch(`${postapi}/${item.id}`, {
       method: "PATCH",
       body: JSON.stringify(item),
       headers: {
