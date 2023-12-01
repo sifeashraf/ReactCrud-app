@@ -1,0 +1,15 @@
+{
+  "posts": [
+    {
+      "id": 773,
+      "title": "hello and welcome",
+      "description": "this a new book"
+    }
+  ],
+  "items": [
+    {
+      "id": 1,
+      "item": "the new product"
+    }
+  ]
+}
